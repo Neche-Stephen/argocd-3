@@ -1,18 +1,58 @@
+# replicaCount: 1
+
+# image:
+#   repository: 971608411666.dkr.ecr.eu-north-1.amazonaws.com/frontend-hello
+#   pullPolicy: IfNotPresent
+#   tag: latest
+
+# service:
+#   type: ClusterIP
+#   port: 80
+
+# resources: {}
+
+# nodeSelector: {}
+
+# tolerations: []
+
+# affinity: []
+
 replicaCount: 1
 
 image:
   repository: 971608411666.dkr.ecr.eu-north-1.amazonaws.com/frontend-hello
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: latest
 
 service:
   type: ClusterIP
   port: 80
 
-resources: {}
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "100m"
+  limits:
+    memory: "256Mi"
+    cpu: "200m"
+
+ingress:
+  enabled: true
+  className: external-nginx
+  annotations:
+    cert-manager.io/cluster-issuer: http-01-dev  # or http-01-poc if using a separate ClusterIssuer
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: poc.virtualrestart.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+        - poc.virtualrestart.com
+      secretName: frontend-poc-virtualrestart-com-tls
 
 nodeSelector: {}
-
 tolerations: []
-
 affinity: []
+namespace: poc-apps
