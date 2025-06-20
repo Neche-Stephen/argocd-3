@@ -1,0 +1,38 @@
+replicaCount: 1
+
+image:
+  repository: 971608411666.dkr.ecr.eu-north-1.amazonaws.com/backend-hello
+  pullPolicy: Always
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 8080
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "100m"
+  limits:
+    memory: "256Mi"
+    cpu: "200m"
+
+ingress:
+  enabled: true
+  className: external-nginx
+  annotations:
+    cert-manager.io/cluster-issuer: http-01-dev
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: backend.poc.virtualrestart.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+        - backend.poc.virtualrestart.com
+      secretName: backend-poc-virtualrestart-com-tls
+
+nodeSelector: {}
+tolerations: []
+affinity: []
