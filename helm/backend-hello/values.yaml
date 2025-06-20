@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: 971608411666.dkr.ecr.eu-north-1.amazonaws.com/backend-hello
   pullPolicy: Always
-  tag: latest
+  tag: 1.0.0
 
 service:
   type: ClusterIP
