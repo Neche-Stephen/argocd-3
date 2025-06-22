@@ -1,0 +1,16 @@
+auth:
+  username: pocuser
+  password: pocpassword
+  database: pocdb
+
+primary:
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
+    limits:
+      memory: "256Mi"
+      cpu: "200m"
+
+volumePermissions:
+  enabled: true
