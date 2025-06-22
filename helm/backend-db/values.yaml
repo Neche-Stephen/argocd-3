@@ -1,8 +1,24 @@
+# auth:
+#   username: pocuser
+#   password: pocpassword
+#   database: pocdb
+
+# primary:
+#   resources:
+#     requests:
+#       memory: "128Mi"
+#       cpu: "100m"
+#     limits:
+#       memory: "256Mi"
+#       cpu: "200m"
+
+# volumePermissions:
+#   enabled: true
+
 auth:
   username: pocuser
   password: pocpassword
   database: pocdb
-
 primary:
   resources:
     requests:
@@ -11,6 +27,8 @@ primary:
     limits:
       memory: "256Mi"
       cpu: "200m"
-
+  persistence:
+    storageClass: "gp2"
+    size: 8Gi
 volumePermissions:
   enabled: true
